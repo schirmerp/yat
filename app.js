@@ -31,7 +31,7 @@ const sqs = (cl) => {
     box.className = `${cl} unlocked`
     box.id = `${cl}`
     box.style.minWidth = '10vw'
-    box.style.minHeight = '30vh'
+    box.style.minHeight = '20vh'
     box.style.border = '5px solid red'
     box.style.display = 'inline-block'
     board.appendChild(box)
