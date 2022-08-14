@@ -1,75 +1,99 @@
-
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    vertical-align: center;
-    flex-wrap: wrap;
-    align-content: center;
-    font-family: 'Open Sans', sans-serif;
-    
-    background: linear-gradient(top, #222, #333);
-  }
-  
-  /* code starts here */
-  
-  .first-face {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .dice {
-    padding: 4px;
-    background-color: tomato;
-    width: 104px;
-    height: 104px;
-    border-radius: 10%;
-    margin-right : 10px;
-  }
-  .dot{
-    display: block;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color:white;
-  }
-  .unlocked{
-    border: 5px solid green !important;
-  }
-  .second-face{
-    display: flex ;
-    justify-content: space-between;
-  }
-  
-  .second-face .dot:nth-of-type(2) {
-    align-self: flex-end;
-  }
-  
-  .third-face {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .third-face .dot:nth-of-type(1) {
-    align-self :flex-end;
-  }
-  
-  .third-face .dot:nth-of-type(2) {
-    align-self :center;
-  }
-  
-  
-  .fourth-face , .sixth-face, .fifth-face{
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .fourth-face .column , .sixth-face .column, .fifth-face .column{
+body{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .fifth-face .column:nth-of-type(2) {
-    justify-content: center;
-  }
+    align-items: center;
+}
+#board{
+    display: flex;
+    height: 50vh;
+    width: 70vw;
+    border: 5px solid black;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+
+.box{
+    border: 3px solid green;
+    height: 15vh;
+    width: 8vw;
+    font-size: 5vw;
+    text-align: -webkit-center;
+}
+.box > * {
+    height: auto;
+    width: 100%;
+}
+.locked{
+    border: 3px solid red;
+}
+
+table {
+    border: 2px solid black;
+    display: flex;
+}
+td {
+    border: 2px solid black;
+    width: 5vw;
+    height: 3vh;
+    text-align:center;
+}
+#roll{
+    height: 3vh;
+    width: 5vw;
+}
+#title{
+    position: absolute;
+    top: -5vh;
+    left: 43vw;
+    font-size: 4vw;
+}
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+#p1-name{
+    position: relative;
+    right: 30vw;
+    bottom: -8vw;
+    height: 5vh;
+    width: 10vw;
+}
+#p2-name{
+    position: relative;
+    left: 30vw;
+    bottom: -5vw;
+    height: 5vh;
+    width: 10vw;
+}
+.p2{
+    display: none
+}
+
+tbody{
+    border: 2px solid black;
+}
+#show-score{
+    display: none;
+}
+#show-turns{
+    display: none;
+}
+#show-rolls{
+    display: none;
+}
+#scoreboard{
+    position: relative;
+    right: -20vw;
+    bottom: 30vh;
+    border: 3px solid black;
+    padding: 10px;
+    text-align: center;
+}
+.scoreboard{
+    margin-top: 3vh;
+}
+/* #score{
+    border: 3px solid black;
+} */

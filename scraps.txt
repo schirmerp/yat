@@ -1,0 +1,44 @@
+function start_game(){
+    // const gameData = document.createElement('form')
+    names = []
+    game.players = []
+    let tab1 = document.getElementById('tabP1')
+    let tab2 = document.getElementById('tabP2')
+    const p1_name = document.createElement("input")
+    const submit = document.createElement('button')
+    submit.style = "type : submit; position : relative; right: 13vw; bottom: -15vh"
+    submit.textContent = 'Submit Names'
+
+    submit.id = 'player-form'
+    p1_name.id = "p1name"
+    p1_name.placeholder = "Player 1 Name"
+    p1_name.style = "position:relative; left: 5vw; bottom: 10vh"
+    const p2_name = document.createElement("input")
+    p2_name.id = "p2name"
+    p2_name.placeholder = "Player 2 Name"
+    p2_name.style = "position:relative; right: 5vw; bottom: -8vh"
+    board.appendChild(p1_name)
+    board.appendChild(p2_name)
+    board.appendChild(submit)
+    //board.appendChild(gameData)
+    let pp1 = document.getElementById('p1name')
+    let pp2 = document.getElementById('p2name')
+    
+    submit.onclick = () =>{
+        names.push(pp1.value)
+        names.push(pp2.value)
+        console.log(names)
+        p1_name.style.display = 'none'
+        p2_name.style.display = 'none'
+        submit.style.display = 'none'
+        game.players.push(names[0])
+        try{
+            game.players.push(names[1])
+        }
+        catch(e){   console.log(e) }
+    }
+    game.active = true
+    
+
+    return names
+}

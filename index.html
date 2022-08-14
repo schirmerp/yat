@@ -9,7 +9,122 @@
     <script src="app.js" defer></script>
 </head>
 <body>
+    <div id="board">
+        <button id="roll" onclick="game.active ? active_roll() : roll()" >Roll</button>
+        <button id="start" onclick="game_init()">Start Game</button>
+        <h1 id="title">Yahtzee</h1>
+        <span class="box" id="dice-1"></span>
+        <span class="box" id="dice-2"></span>
+        <span class="box" id="dice-3"></span>
+        <span class="box" id="dice-4"></span>
+        <span class="box" id="dice-5"></span>
+        <span id="show-score">score:</span>
+        <span id="show-turns">turns:</span>
+        <span id="show-rolls">rolls:</span>
+    </div>
+    <!-- <input type="text" id="p1-name" placeholder="player1"/>
+    <input class="p2" type="text" id="p2-name" placeholder="player2"/> -->
+    <table class="scoreboard">
+        <tbody id="lower-score">
+            <tr>
+                <th></th>
+                <td id="tabP1">Player 1</td>
+                <td class='p2' id="tabP2">Player 2</td>
+            </tr>
+            <tr>
+                <th>Ones</th>
+                <td class='reset' id="p1-1" onclick="ones_click()" onMouseOver='oneCheck()' onMouseOut="oneOut()"></td>
+                <td class='p2' id="p2-1"></td>
+            </tr>
+            <tr>
+                <th>Twos</th>
+                <td class='reset' id="p1-2" onclick="twos_click()" onMouseOver='twoCheck()' onMouseOut="twoOut()"></td>
+                <td class='p2' id="p2-2"></td>
+            </tr>
+            <tr>
+                <th>Threes</th>
+                <td class='reset' id="p1-3" onclick="threes_click()" onMouseOver='threeCheck()' onMouseOut="threeOut()"></td>
+                <td class='p2' id="p2-3"></td>
+            </tr>
+            <tr>
+                <th>Fours</th>
+                <td class='reset' id="p1-4" onclick="fours_click()" onMouseOver='fourCheck()' onMouseOut="fourOut()"></td>
+                <td class='p2' id="p2-4"></td>
+            </tr>
+            <tr>
+                <th>Fives</th>
+                <td class='reset' id="p1-5" onclick="fives_click()" onMouseOver='fiveCheck()' onMouseOut="fiveOut()"></td>
+                <td class='p2' id="p2-5"></td>
+            </tr>
+            <tr>
+                <th>Sixes</th>
+                <td class='reset' id="p1-6" onclick="sixes_click()" onMouseOver='sixCheck()' onMouseOut="sixOut()"></td>
+                <td class='p2' id="p2-6"></td>
+            </tr>
+            <tr>
+                <th>Bonus</th>
+                <td class='reset' id="p1-b"></td>
+                <td class='p2' id="p2-b"></td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td class='reset' id="p1-tl"></td>
+                <td class='p2' id="p2-tl"></td>
+            </tr>
+        </tbody>
+        <tbody id="upper-score">
+        <tr>
+            <th></th>
+            <td >Player 1</td>
+            <td class='p2'>Player 2</td>
+        </tr>
+        <tr>
+            <th>3 Kind</th>
+            <td class='reset' id="p1-3k" onclick="three_kind_click()" onMouseOver='tkCheck()' onMouseOut="tkOut()"></td>
+            <td class='p2' id="p2-3k"></td>
+        </tr>
+        <tr>
+            <th>4 Kind</th>
+            <td class='reset' id="p1-4k" onclick="four_kind_click()" onMouseOver='fkCheck()' onMouseOut="fkOut()"></td>
+            <td class='p2' id="p2-4k"></td>
+        </tr>
+        <tr>
+            <th>Full House</th>
+            <td class='reset' id="p1-fh" onclick="full_click()" onMouseOver='fhCheck()' onMouseOut="fhOut()"></td>
+            <td class='p2' id="p2-fh"></td>
+        </tr>
+        <tr>
+            <th>Small Straight</th>
+            <td class='reset' id="p1-ss" onclick="small_click()" onMouseOver='ssCheck()' onMouseOut="ssOut()"></td>
+            <td class='p2' id="p2-ss"></td>
+        </tr>
+        <tr>
+            <th>Large Straight</th>
+            <td class='reset' id="p1-ls" onclick="large_click()" onMouseOver='lsCheck()' onMouseOut="lsOut()"></td>
+            <td class='p2' id="p2-ls"></td>
+        </tr>
+        <tr>
+            <th>Chance</th>
+            <td class='reset' id="p1-c" onclick="chance_click()" onclick="large_click()" onMouseOver='cCheck()' onMouseOut="cOut()"></td>
+            <td class='p2' id="p2-c"></td>
+        </tr>
+        <tr>
+            <th>Yahtzee</th>
+            <td class='reset' id="p1-y" onclick="yat_click()" onclick="large_click()" onMouseOver='yCheck()' onMouseOut="yOut()"></td>
+            <td class='p2' id="p2-y"></td>
+        </tr>
+        <tr>
+            <th>Total</th>
+            <td class='reset' id="p1-tu"></td>
+            <td class='p2' id="p2-tu"></td>
+        </tr>
+    </tbody>
+    </table>
+    <div id="scoreboard">Score: 
+        <br>
+        <span id="score">0</span>
+    </div>
+    <button id="emergency-door" onclick="location.reload()">Reset Everything!</button>
 
-    
 </body>
 </html>
