@@ -22,11 +22,13 @@ const p1y = document.getElementById('p1-y');
 const p1c = document.getElementById('p1-c');
 const p1tu = document.getElementById('p1-tu');
 const rsts = document.querySelectorAll('.reset')
-const ss = document.getElementById('show-score')
+// const ss = document.getElementById('show-score')
+const r = document.getElementById('rolls')
 const sr = document.getElementById('show-rolls')
 const st = document.getElementById('show-turns')
 const score = document.getElementById('score')
-
+const pname = document.getElementById('playerName')
+const pnamed = document.getElementById('playerNameDisplay')
 
 const dice_roll = () =>{
     let num = Math.floor(Math.random() * 6) + 1
@@ -92,19 +94,26 @@ function board_reset(){
         }
         b.innerHTML = ''
     })
+    sr.innerHTML = game.player.rolls ? game.player.rolls : 0
 }
 function rst_game(){ 
     game.player = ''
     game.active = false
+    pnamed.style.display = 'none'
+    st.style.display = 'none'
+    r.style.display = 'none'
+    
+    board.style.backgroundColor = 'white'
     rsts.forEach(e => e.innerHTML = '')
 }
 function end_game(){
     game.player.rolls = 3
     alert(game.player.score)
+    game.player.score = 0
     rst_game()
 }
 function update(){
-    ss.innerHTML = game.player.score
+    // ss.innerHTML = game.player.score
     sr.innerHTML = game.player.rolls
     st.innerHTML = (13 - track.total)
 }
@@ -118,6 +127,7 @@ function active_roll(){
     if (game.player.rolls > 0){
         roll()
         game.player.rolls -= 1
+        score.innerHTML = game.player.score
         console.log(game.player.rolls)
     }
     else{
@@ -152,22 +162,20 @@ function active_roll(){
 
 function game_init() {
     let p1 = ''
-    if(p1_name.value == ''){
-       p1 = prompt('Please Eneter a Name')
-    }
-    else{
-        p1 = p1_name.value
-    }
+    p1 = prompt('Please Eneter a Name')
     let player = new Player(p1)
     game.player = player
     game.active = true
     board.style.backgroundColor = 'lightgreen'
-    ss.style.display = 'inline-block'
+    // ss.style.display = 'inline-block'
     sr.style.display = 'inline-block'
+    r.style.display = 'inline-block'
     st.style.display = 'inline-block'
-    ss.innerHTML += game.player.score
-    sr.innerHTML += game.player.rolls
-    st.innerHTML += (13 -track.total)
+    // ss.innerHTML += game.player.score
+    sr.innerHTML = game.player.rolls
+    st.innerHTML = (13 -track.total)
+    pnamed.style.display = 'inline-block'
+    pname.innerHTML = game.player.name
 
 }   
 //---- diceThrow reset------
@@ -278,7 +286,7 @@ function yatty(a){
 //consider prompting to make score entry official
 function ones_click(){
     //write me
-    if (p11.innerText == ''){
+    if (p11.innerText == ''|| check == true){
         console.log('add score')
         dtreset()
         read().forEach((d)=>{
@@ -306,6 +314,7 @@ function ones_click(){
         if(track.total == 13){
             end_game()    
         }
+        check = false
     }
     else{
         alert('already scored ones')
@@ -313,7 +322,7 @@ function ones_click(){
 }
 function twos_click(){
     //write me\
-    if(p12.innerText == ''){
+    if(p12.innerText == '' || check == true){
         let twoscore = 0
         read().forEach((d)=>{
             if (parseInt(d) == 2) {
@@ -342,6 +351,7 @@ function twos_click(){
         if(track.total == 13){
             end_game()    
         }
+        check = false
     }
     else{
         alert('already scored twos')
@@ -349,7 +359,7 @@ function twos_click(){
 }
 function threes_click(){
     //write me
-    if(p13.innerText == ''){
+    if(p13.innerText == '' || check == true){
         let threescore = 0
         read().forEach((d)=>{
             if (parseInt(d) == 3) {
@@ -377,6 +387,7 @@ function threes_click(){
         if(track.total == 13){
             end_game()    
         }
+        check = false
     }
     else{
         alert('already scored threes')
@@ -384,7 +395,7 @@ function threes_click(){
 }
 function fours_click(){
     //write me
-    if(p14.innerText == ''){
+    if(p14.innerText == '' || check == true){
         let fourscore = 0
         read().forEach((d)=>{
             if (parseInt(d) == 4) {
@@ -412,6 +423,7 @@ function fours_click(){
         if(track.total == 13){
             end_game()    
         }
+        check = false
     }
     else{
         alert('already scored twos')
@@ -419,7 +431,7 @@ function fours_click(){
 }
 function fives_click(){
     //write me
-    if(p15.innerText == ''){
+    if(p15.innerText == '' || check == true){
         let fivescore = 0
         read().forEach((d)=>{
             if (parseInt(d) == 5) {
@@ -447,6 +459,7 @@ function fives_click(){
         if(track.total == 13){
             end_game()    
         }
+        check = false
     }
     else{
         alert('already scored twos')
@@ -454,7 +467,7 @@ function fives_click(){
 }
 function sixes_click(){
     //write me
-    if(p16.innerText == ''){
+    if(p16.innerText == '' || check == true){
         let sixscore = 0
         read().forEach((d)=>{
             if (parseInt(d) == 6) {
@@ -482,6 +495,7 @@ function sixes_click(){
         if(track.total == 13){
             end_game()    
         }
+        check = false
     }
     else{
         alert('already scored sixes')
@@ -489,75 +503,83 @@ function sixes_click(){
 }
 function three_kind_click(){
     //write me
-    if (three_kind(read())){
-        let tkscore = 0
-        if(yatty(read())){
-            game.player.score += 50
-        }
-        read().forEach((d)=>{
-            tkscore += d
-        })
-        p13k.innerText = tkscore
-        game.player.rolls = 3
-        game.player.score += tkscore
-        track.total += 1
-        board_reset()
-        if(track.total == 13){
-            end_game()    
-        }
-    }
-    else{
-        var answer = window.confirm("Take 0 points?");
-        if (answer) {
-            p13k.innerText = 0
+    if (p13k.innerText == '' || check == true){
+        if (three_kind(read())){
+            let tkscore = 0
+            if(yatty(read())){
+                game.player.score += 50
+            }
+            read().forEach((d)=>{
+                tkscore += d
+            })
+            p13k.innerText = tkscore
             game.player.rolls = 3
+            game.player.score += tkscore
             track.total += 1
             board_reset()
             if(track.total == 13){
                 end_game()    
             }
+            check = false
         }
-        else {
-            pass
+        else{
+            var answer = window.confirm("Take 0 points?");
+            if (answer) {
+                p13k.innerText = 0
+                game.player.rolls = 3
+                track.total += 1
+                board_reset()
+                if(track.total == 13){
+                    end_game()    
+                }
+                check = false
+            }
+            else {
+                pass
+            }
         }
     }
 }
 function four_kind_click(){
     //write me
-    if (four_kind(read())){
-        let fkscore = 0
-        read().forEach((d)=>{
-            fkscore += d
-        })
-        
-        p14k.innerText = fkscore
-        game.player.rolls = 3
-        game.player.score += fkscore
-        track.total += 1
-        board_reset()
-        if(track.total == 13){
-            end_game()    
-        }
-    }
-    else{
-        var answer = window.confirm("Take 0 points?");
-        if (answer) {
-            p14k.innerText = 0
+    if (p14k.innerText == '' || check == true){
+        if (four_kind(read())){
+            let fkscore = 0
+            read().forEach((d)=>{
+                fkscore += d
+            })
+            
+            p14k.innerText = fkscore
             game.player.rolls = 3
+            game.player.score += fkscore
             track.total += 1
             board_reset()
             if(track.total == 13){
                 end_game()    
             }
+            check = false
         }
-        else {
-            pass
+        else{
+            var answer = window.confirm("Take 0 points?");
+            if (answer) {
+                p14k.innerText = 0
+                game.player.rolls = 3
+                track.total += 1
+                board_reset()
+                if(track.total == 13){
+                    end_game()    
+                }
+                check = false
+            }
+            else {
+                pass
+            }
         }
     }
 }
 function full_click(){
     //write me
-    if (p1fh.innerText == ''){
+    if (p1fh.innerText == '' || check == true){
         if (full_house(read())){
             
             p1fh.innerText = '25'
@@ -568,6 +590,7 @@ function full_click(){
             if(track.total == 13){
                 end_game()    
             }
+            check = false
         }
         else{
             var answer = window.confirm("Take 0 points?");
@@ -579,6 +602,7 @@ function full_click(){
             if(track.total == 13){
                 end_game()    
             }
+            check = false
         }
         else {
             pass
@@ -588,7 +612,7 @@ function full_click(){
 }
 function small_click(){
     //write me
-    if(p1ss.innerText == ''){
+    if(p1ss.innerText == '' || check == true){
         if(yatty(read())){
             p1ss.innerText = '30'
             game.player.score += 80
@@ -598,6 +622,7 @@ function small_click(){
             if(track.total == 13){
                 end_game()    
             }
+            check = false
         }
         if(small(read())){
             p1ss.innerText = '30'
@@ -608,6 +633,7 @@ function small_click(){
             if(track.total == 13){
                 end_game()    
             }
+            check = false
         }
         else{
             var answer = window.confirm("Take 0 points?");
@@ -619,6 +645,7 @@ function small_click(){
             if(track.total == 13){
                 end_game()    
             }
+            check = false
         }
         else {
             pass
@@ -631,9 +658,9 @@ function small_click(){
 }
 function large_click(){
     //write me
-    if(p1ls.innerText == ''){
+    if(p1ls.innerText == '' || check == true){
         if(yatty(read())){
-            p1ss.innerText = '40'
+            p1ls.innerText = '40'
             game.player.score += 90
             game.player.rolls = 3
             track.total += 1
@@ -641,6 +668,7 @@ function large_click(){
             if(track.total == 13){
                 end_game()    
             }
+            check = false
         }
         if(large(read())){
             p1ls.innerText = '40'
@@ -651,6 +679,7 @@ function large_click(){
             if(track.total == 13){
                 end_game()    
             }
+            check = false
         }
         else{
             var answer = window.confirm("Take 0 points?");
@@ -662,6 +691,7 @@ function large_click(){
             if(track.total == 13){
                 end_game()    
             }
+            check = false
         }
         else {
             pass
@@ -674,9 +704,9 @@ function large_click(){
 }
 function yat_click(){
     //write me
-    if(p1y.innerText == ''){
+    if(p1y.innerText == '' || check == true){
         if(yatty(read())){
-            p1ss.innerText = '50'
+            p1y.innerText = '50'
             game.player.score += 50
             game.player.rolls = 3
             track.total += 1
@@ -684,6 +714,7 @@ function yat_click(){
             if(track.total == 13){
                 end_game()    
             }
+            check = false
         }
         else{
             var answer = window.confirm("Take 0 points?");
@@ -695,6 +726,7 @@ function yat_click(){
                 if(track.total == 13){
                     end_game()    
                 }
+                check = false
             }
             else {
                 pass
@@ -707,7 +739,7 @@ function yat_click(){
 }
 function chance_click(){
     //write me
-    if(p1c.innerText == ''){
+    if(p1c.innerText == '' || check == true){
         let cscore = 0
         read().forEach((d)=>{
             cscore += d
@@ -717,10 +749,10 @@ function chance_click(){
         game.player.rolls = 3
         track.total += 1
         board_reset()
-            if(track.total == 13){
-                end_game()    
-            }
-
+        if(track.total == 13){
+            end_game()    
+        }
+        check = false
     }
     else{
         alert('chance already scored')
@@ -738,16 +770,13 @@ function oneCheck(){
         })
         p11.innerHTML = ans
         check = true
-        // console.log(check)
     }
 }
 function oneOut(){
-    console.log(check)
     if(check === true){
         p11.innerHTML = ''
     }
     check = false
-    console.log(check)
 }
 function twoCheck(){
     if (p12.innerText == ''){
@@ -759,16 +788,13 @@ function twoCheck(){
         })
         p12.innerHTML = ans
         check = true
-        // console.log(check)
     }
 }
 function twoOut(){
-    console.log(check)
     if(check === true){
         p12.innerHTML = ''
     }
     check = false
-    console.log(check)
 }
 function threeCheck(){
     if (p13.innerText == ''){
@@ -780,16 +806,13 @@ function threeCheck(){
         })
         p13.innerHTML = ans
         check = true
-        // console.log(check)
     }
 }
 function threeOut(){
-    console.log(check)
     if(check === true){
         p13.innerHTML = ''
     }
     check = false
-    console.log(check)
 }
 function fourCheck(){
     if (p14.innerText == ''){
@@ -801,16 +824,13 @@ function fourCheck(){
         })
         p14.innerHTML = ans
         check = true
-        // console.log(check)
     }
 }
 function fourOut(){
-    console.log(check)
     if(check === true){
         p14.innerHTML = ''
     }
     check = false
-    console.log(check)
 }
 function fiveCheck(){
     if (p15.innerText == ''){
@@ -822,16 +842,13 @@ function fiveCheck(){
         })
         p15.innerHTML = ans
         check = true
-        // console.log(check)
     }
 }
 function fiveOut(){
-    console.log(check)
     if(check === true){
         p15.innerHTML = ''
     }
     check = false
-    console.log(check)
 }
 function sixCheck(){
     if (p16.innerText == ''){
@@ -843,16 +860,13 @@ function sixCheck(){
         })
         p16.innerHTML = ans
         check = true
-        // console.log(check)
     }
 }
 function sixOut(){
-    console.log(check)
     if(check === true){
         p16.innerHTML = ''
     }
     check = false
-    console.log(check)
 }
 function tkCheck(){
     if (p13k.innerText == ''){
@@ -863,17 +877,14 @@ function tkCheck(){
             })
             p13k.innerHTML = ans
             check = true
-            // console.log(check)
         }
     }
 }
 function tkOut(){
-    console.log(check)
     if(check === true){
         p13k.innerHTML = ''
     }
     check = false
-    console.log(check)
 }
 function fkCheck(){
     if (p14k.innerText == ''){
@@ -884,17 +895,14 @@ function fkCheck(){
             })
             p14k.innerHTML = ans
             check = true
-            // console.log(check)
         }
     }
 }
 function fkOut(){
-    console.log(check)
     if(check === true){
         p14k.innerHTML = ''
     }
     check = false
-    console.log(check)
 }
 function fhCheck(){
     if (p1fh.innerText == ''){
@@ -903,17 +911,16 @@ function fhCheck(){
             ans = 25
             p1fh.innerHTML = ans
             check = true
-            // console.log(check)
         }
     }
 }
 function fhOut(){
-    console.log(check)
+    
     if(check === true){
         p1fh.innerHTML = ''
     }
     check = false
-    console.log(check)
+    
 }
 function ssCheck(){
     if (p1ss.innerText == ''){
@@ -922,36 +929,30 @@ function ssCheck(){
             ans = 30
             p1ss.innerHTML = ans
             check = true
-            // console.log(check)
         }
     }
 }
 function ssOut(){
-    console.log(check)
     if(check === true){
         p1ss.innerHTML = ''
     }
     check = false
-    console.log(check)
 }
 function lsCheck(){
     if (p1ls.innerText == ''){
         let ans = 0
         if (large(read())){
-            ans = 30
+            ans = 40
             p1ls.innerHTML = ans
             check = true
-            // console.log(check)
         }
     }
 }
 function lsOut(){
-    console.log(check)
     if(check === true){
         p1ls.innerHTML = ''
     }
     check = false
-    console.log(check)
 }
 function cCheck(){
     if (p1c.innerText == ''){
@@ -961,17 +962,14 @@ function cCheck(){
         })
             p1c.innerHTML = ans
             check = true
-            // console.log(check)
         
     }
 }
 function cOut(){
-    console.log(check)
     if(check === true){
         p1c.innerHTML = ''
     }
     check = false
-    console.log(check)
 }
 function yCheck(){
     if (p1y.innerText == ''){
@@ -980,15 +978,12 @@ function yCheck(){
             ans = 50
             p1y.innerHTML = ans
             check = true
-            // console.log(check)
         }
     }
 }
 function yOut(){
-    console.log(check)
     if(check === true){
         p1y.innerHTML = ''
     }
     check = false
-    console.log(check)
 }

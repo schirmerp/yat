@@ -80,7 +80,13 @@ tbody{
 #show-turns{
     display: none;
 }
-#show-rolls{
+#rolls{
+    position: relative;
+    right: -15vw;
+    bottom: 38vh;
+    border: 3px solid black;
+    padding: 10px;
+    text-align: center;
     display: none;
 }
 #scoreboard{
@@ -97,3 +103,12 @@ tbody{
 /* #score{
     border: 3px solid black;
 } */
+#playerNameDisplay{
+    position: relative;
+    right: -25vw;
+    bottom: 30vh;
+    border: 3px solid black;
+    padding: 10px;
+    text-align: center;
+    display: none;
+}
