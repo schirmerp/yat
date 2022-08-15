@@ -106,9 +106,31 @@ function rst_game(){
     board.style.backgroundColor = 'white'
     rsts.forEach(e => e.innerHTML = '')
 }
+function end_cut(){
+    const message = document.createElement('div')
+    const but = document.createElement('button')
+    message.style.position = 'fixed'
+    message.style.top = '50%'
+    message.style.left = '50%'
+    message.style.transform = 'translate(-50%, -50%)'
+    message.style.height = '50vh'
+    message.style.width = '60vh'
+    message.style.fontSize = '5vw'
+    message.style.zIndex = 10
+    message.style.border = "5px solid blue"
+    message.style.backgroundColor = "white"
+    message.innerHTML = `${game.player.name} \n score: ${game.player.score} \n`
+    message.style.textAlign = "center"
+    but.textContent = "close"
+    but.style = "position:relative;"
+    board.appendChild(message)
+    message.appendChild(but)
+    but.onclick = () => {board.removeChild(message)}
+}
 function end_game(){
     game.player.rolls = 3
-    alert(game.player.score)
+    // alert(game.player.score)
+    end_cut()
     game.player.score = 0
     rst_game()
 }
