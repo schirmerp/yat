@@ -40,9 +40,10 @@ td {
 }
 #roll{
     height: 10%;
-    width: 45%;
+    width: 20%;
     position: absolute;
     bottom: 52%;
+    font-size: 2vw;
 
 }
 #title{
