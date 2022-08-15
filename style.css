@@ -9,7 +9,7 @@ body{
     width: 70vw;
     border: 5px solid black;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     
 }
 
@@ -18,14 +18,14 @@ body{
     height: 15vh;
     width: 8vw;
     font-size: 5vw;
-    text-align: -webkit-center;
+    text-align: center;
 }
 .box > * {
     height: auto;
     width: 100%;
 }
 .locked{
-    border: 3px solid red;
+    border: 5px solid red;
 }
 
 table {
@@ -39,8 +39,11 @@ td {
     text-align:center;
 }
 #roll{
-    height: 3vh;
-    width: 5vw;
+    height: 10%;
+    width: 45%;
+    position: absolute;
+    bottom: 52%;
+
 }
 #title{
     position: absolute;
